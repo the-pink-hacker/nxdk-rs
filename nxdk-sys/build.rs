@@ -23,9 +23,14 @@ fn gen_bindings(nxdk_dir: &str, lib_path: &str, header: &str) {
         .generate()
         .expect("Unable to generate bindings");
 
-    println!("cargo:rerun-if-changed={}/lib/{}/{}/h", nxdk_dir, lib_path, header);
+    println!(
+        "cargo:rerun-if-changed={}/lib/{}/{}/h",
+        nxdk_dir, lib_path, header
+    );
     let out_path = std::path::PathBuf::from(std::env::var("OUT_DIR").unwrap());
-    bindings.write_to_file(out_path.join(format!("bindings_{}.rs", header))).expect("Unable to write bindings");
+    bindings
+        .write_to_file(out_path.join(format!("bindings_{}.rs", header)))
+        .expect("Unable to write bindings");
 }
 
 fn main() {
@@ -33,7 +38,7 @@ fn main() {
     match std::env::var("NXDK_DIR") {
         Ok(v) => {
             nxdk_dir = v;
-        },
+        }
         Err(e) => {
             panic!("Error reading NXDK_DIR environment variable: {:?}", e);
         }
@@ -65,7 +70,7 @@ fn main() {
     gen_bindings(&nxdk_dir, "hal", "led");
     gen_bindings(&nxdk_dir, "hal", "video");
     gen_bindings(&nxdk_dir, "hal", "xbox");
-    
+
     gen_bindings(&nxdk_dir, "pbkit", "pbkit");
 
     gen_bindings(&nxdk_dir, "xboxkrnl", "xboxkrnl");
