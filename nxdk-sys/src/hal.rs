@@ -12,3 +12,7 @@ pub mod video {
 pub mod debug {
     include!(concat!(env!("OUT_DIR"), "/bindings_debug.rs"));
 }
+
+pub mod led {
+    include!(concat!(env!("OUT_DIR"), "/bindings_led.rs"));
+}
