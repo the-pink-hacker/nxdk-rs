@@ -4,6 +4,7 @@ version = "0.1.0"
 resolver = "2"
 
 [build-dependencies]
+[workspace]
 
 [dependencies]
 nxdk-rs = { path = "../.." }

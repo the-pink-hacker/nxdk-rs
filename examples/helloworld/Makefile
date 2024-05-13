@@ -1,5 +1,4 @@
 CXBE=$(NXDK_DIR)/tools/cxbe/cxbe
-XISO=$(NXDK_DIR)/tools/extract-xiso/build/extract-xiso
 
 CRATE=helloworld
 
@@ -8,11 +7,13 @@ all:
 	cargo +nightly build --release
 	mkdir -p bin
 	@$(CXBE) target/i386-xbox-win32/release/$(CRATE).exe -OUT:bin/default.xbe -TITLE:$(CRATE)
-	@$(XISO) -c bin 
+	mkdir -p output
+	xdvdfs pack bin "output/$(CRATE).iso"
 
 clean:
 	cargo clean
-	rm -r bin
-	rm bin.iso
+	rm -rf bin
+	rm -rf output
+	rm -f bin.iso
 
 .PHONY: clean
