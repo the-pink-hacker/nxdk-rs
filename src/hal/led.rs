@@ -1,16 +1,20 @@
 // SPDX-License-Identifier: MIT
 
+use nxdk_sys::hal::led::*;
+
+#[derive(Debug, Default)]
 pub enum LEDColor {
-    Off = 0x00,
-    Green = 0x01,
-    Red = 0x10,
-    Orange = 0x11,
+    #[default]
+    Off = _XLEDColor_XLED_OFF as isize,
+    Green = _XLEDColor_XLED_GREEN as isize,
+    Red = _XLEDColor_XLED_RED as isize,
+    Orange = _XLEDColor_XLED_ORANGE as isize,
 }
 
 /// Restore system LED control.
 pub fn xreset_led() {
     unsafe {
-        nxdk_sys::hal::led::XResetLED();
+        XResetLED();
     }
 }
 
@@ -18,11 +22,6 @@ pub fn xreset_led() {
 /// For more characteristics, please see https://xboxdevwiki.net/LED.
 pub fn xset_custom_led(color1: LEDColor, color2: LEDColor, color3: LEDColor, color4: LEDColor) {
     unsafe {
-        nxdk_sys::hal::led::XSetCustomLED(
-            color1 as i32,
-            color2 as i32,
-            color3 as i32,
-            color4 as i32,
-        );
+        XSetCustomLED(color1 as i32, color2 as i32, color3 as i32, color4 as i32);
     }
 }
