@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 pub enum LEDColor {
     Off = 0x00,
     Green = 0x01,
