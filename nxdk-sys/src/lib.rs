@@ -5,4 +5,5 @@ pub mod clib;
 pub mod hal;
 pub mod kernel;
 pub mod pbkit;
+pub mod sdl;
 pub mod winapi;

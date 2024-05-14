@@ -13,10 +13,12 @@ fn gen_bindings(nxdk_dir: &str, lib_path: &str, header: &str) {
         .clang_arg(format!("-I{}/lib/xboxrt/libc_extensions", nxdk_dir))
         .clang_arg(format!("-I{}/lib/pdclib/include", nxdk_dir))
         .clang_arg(format!("-I{}/lib/pdclib/platform/xbox/include", nxdk_dir))
+        .clang_arg(format!("-I{}/lib/sdl/SDL2/include", nxdk_dir))
         .clang_arg(format!("-I{}/lib/winapi", nxdk_dir))
         .clang_arg(format!("-I{}/lib/xboxrt/vcruntime", nxdk_dir))
         .clang_arg("-D__STDC__=1")
         .clang_arg("-DNXDK")
+        .clang_arg("-DXBOX")
         .parse_callbacks(Box::new(bindgen::CargoCallbacks))
         .use_core()
         .ctypes_prefix("libc")
@@ -79,6 +81,8 @@ fn main() {
     gen_bindings(&nxdk_dir, "pdclib/include", "string");
     gen_bindings(&nxdk_dir, "pdclib/include", "stdio");
     gen_bindings(&nxdk_dir, "pdclib/include", "time");
+
+    gen_bindings(&nxdk_dir, "sdl/SDL2/include", "SDL");
 
     gen_bindings(&nxdk_dir, "winapi", "windows");
 }
