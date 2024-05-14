@@ -19,10 +19,12 @@ fn alloc_error_handler(layout: core::alloc::Layout) -> ! {
 
 #[no_mangle]
 pub extern "C" fn main() -> ! {
-    let msg = format!("Hello from {}!", "Rust");
+    let msg = format!("Hello from {}!\n", "Rust");
 
     nxdk_rs::hal::video::xvideo_set_mode(640, 480, 32, nxdk_rs::hal::video::RefreshRate::Default);
     nxdk_rs::hal::debug::debug_print_str(&msg);
+
+    nxdk_rs::hal::debug::debug_print_binary(0b1010);
 
     loop {}
 }
